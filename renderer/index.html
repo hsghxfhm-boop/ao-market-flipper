@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Market Tracer - Albion Online</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="app-container">
+    <!-- Sidebar / Filter Panel -->
+    <aside class="sidebar">
+      <div class="logo-area">
+        <h1>Market Tracer</h1>
+        <span class="version" id="app-version">v1.0.0</span>
+        <div
+          style="margin-top: 15px; font-size: 0.9em; color: #a0a0a0; display: flex; flex-direction: column; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+            </svg>
+            <span id="player-name" style="color: #fff; font-weight: 500;">Waiting for data...</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            <span id="current-map">Unknown Map</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="capture-control">
+        <button id="btn-capture" class="btn primary">Start Capture</button>
+        <button id="btn-scan" class="btn secondary">Profit Scan</button>
+        <button id="btn-clear" class="btn danger" style="margin-top: 8px; width: 100%;">Clear Records</button>
+        <div class="status-indicator">
+          <span class="dot disconnected" id="status-dot"></span>
+          <span id="status-text">Disconnected</span>
+        </div>
+      </div>
+
+      <div class="filters">
+        <h3>Filters</h3>
+
+        <div class="filter-group">
+          <label>Source City</label>
+          <select id="filter-city">
+            <option value="all">All Cities</option>
+            <option value="Martlock">Martlock</option>
+            <option value="Thetford">Thetford</option>
+            <option value="Fort Sterling">Fort Sterling</option>
+            <option value="Lymhurst">Lymhurst</option>
+            <option value="Bridgewatch">Bridgewatch</option>
+            <option value="Caerleon">Caerleon</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Target City (Sell)</label>
+          <select id="filter-target">
+            <option value="Black Market">Black Market</option>
+            <option value="Martlock">Martlock</option>
+            <option value="Thetford">Thetford</option>
+            <option value="Fort Sterling">Fort Sterling</option>
+            <option value="Lymhurst">Lymhurst</option>
+            <option value="Bridgewatch">Bridgewatch</option>
+            <option value="Caerleon">Caerleon</option>
+            <option value="Brecilien">Brecilien</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Tier</label>
+          <div class="checkbox-grid" id="filter-tiers">
+            <label><input type="checkbox" value="2"> T2</label>
+            <label><input type="checkbox" value="3"> T3</label>
+            <label><input type="checkbox" value="4" checked> T4</label>
+            <label><input type="checkbox" value="5" checked> T5</label>
+            <label><input type="checkbox" value="6" checked> T6</label>
+            <label><input type="checkbox" value="7" checked> T7</label>
+            <label><input type="checkbox" value="8" checked> T8</label>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <label>Enchantment</label>
+          <div class="checkbox-grid" id="filter-enchantment">
+            <label><input type="checkbox" value="0" checked> .0</label>
+            <label><input type="checkbox" value="1" checked> .1</label>
+            <label><input type="checkbox" value="2" checked> .2</label>
+            <label><input type="checkbox" value="3" checked> .3</label>
+            <label><input type="checkbox" value="4" checked> .4</label>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <label>Quality</label>
+          <div class="checkbox-grid" id="filter-quality">
+            <label><input type="checkbox" value="1" checked> N</label>
+            <label><input type="checkbox" value="2" checked> G</label>
+            <label><input type="checkbox" value="3" checked> O</label>
+            <label><input type="checkbox" value="4" checked> E</label>
+            <label><input type="checkbox" value="5" checked> M</label>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <label>Item Category</label>
+          <select id="filter-category">
+            <option value="all">All Categories</option>
+            <option value="WEAPON">Weapons</option>
+            <option value="ARMOR">Armor</option>
+            <option value="ACCESSORIES">Accessories (Bag/Cape)</option>
+            <option value="CONSUMABLE">Consumables</option>
+            <option value="MOUNT">Mounts</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Min. Profit (Silver)</label>
+          <input type="number" id="filter-min-profit" value="1000" step="1000">
+        </div>
+
+        <div class="filter-group">
+          <label>Min. ROI (%)</label>
+          <input type="number" id="filter-min-roi" value="5" step="1" max="1000">
+        </div>
+
+        <div class="filter-group"
+          style="margin-top: 10px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+          <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+            <span>Premium Status<br><small style="color: #a0a0a0; font-weight: normal;">Affects Tax Rate (4.0% vs
+                8.0%)</small></span>
+            <input type="checkbox" id="filter-premium" style="width: 18px; height: 18px; margin: 0;" checked>
+          </label>
+        </div>
+      </div>
+
+      <div class="stats-panel">
+        <div>Items Scanned: <span id="stat-scanned">0</span></div>
+        <div>Profitable Flips: <span id="stat-flips">0</span></div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <header class="top-bar">
+        <h2>Live Market Opportunities</h2>
+        <div class="sort-control">
+          <label>Sort By:</label>
+          <select id="sort-by">
+            <option value="profit-desc">Highest Profit</option>
+            <option value="roi-desc">Highest ROI %</option>
+            <option value="recent">Most Recent</option>
+          </select>
+        </div>
+      </header>
+
+      <div class="flips-container" id="flips-list">
+        <!-- Flip Cards will be injected here via JS -->
+        <div class="empty-state">
+          <div class="icon">📡</div>
+          <h3>Waiting for Market Data...</h3>
+          <p>Please click "Start Capture" and open the market in Albion Online.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
