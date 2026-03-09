@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+dist/
+
+# Logs
+*.log
+capture.log
+
+# Databases
+*.db
+market.db
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+bin/
+out/
+
+# Temp files
+Yeni Metin Belgesi.txt
+tmp/
