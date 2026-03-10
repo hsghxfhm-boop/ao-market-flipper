@@ -2,7 +2,6 @@ const { spawn } = require('child_process');
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
-const axios = require('axios');
 const locations = require('../core/locations.json');
 const marketDb = require('../core/marketDb');
 
